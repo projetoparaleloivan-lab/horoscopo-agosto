@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Horóscopo VIP de Agosto | O que os astros reservam pra você</title>
+<meta name="description" content="Descubra o que agosto reserva para o seu amor, dinheiro, trabalho e saúde em um portal místico exclusivo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-profundo: #070510;
+    --bg-card: rgba(23, 18, 48, 0.65);
+    --bg-card-hover: rgba(36, 28, 75, 0.85);
+    
+    --dourado-puro: #ffd700;
+    --dourado-sol: #f3ba2f;
+    --dourado-claro: #ffe8aa;
+    --dourado-degrade: linear-gradient(135deg, #fff3d1 0%, #f3ba2f 50%, #b8860b 100%);
+    
+    --magenta-astral: #d946ef;
+    --ciano-mistico: #06b6d4;
+    --lilas-brilhante: #c084fc;
+    --texto-marfim: #f8f5ee;
+    --texto-suave: #a5a1c9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background-color: var(--bg-profundo);
+    color: var(--texto-marfim);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .serif { font-family: 'Cinzel', Georgia, serif; }
+
+  #canvasEstrelas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .nebula {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .nebula-1 { top: -80px; left: -80px; background: var(--magenta-astral); }
+  .nebula-2 { bottom: -80px; right: -80px; background: var(--ciano-mistico); }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px 36px;
+  }
+
+  /* Controle Estrito de Visibilidade de Telas */
+  .tela { display: none !important; }
+  .tela.ativa { 
+    display: flex !important; 
+    flex-direction: column; 
+    flex: 1; 
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 3.5px;
+    color: var(--dourado-claro);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .eyebrow .linha { 
+    width: 36px; 
+    height: 1px; 
+    background: linear-gradient(90deg, transparent, var(--dourado-sol), transparent); 
+  }
+
+  /* Orbe Principal */
+  .anel-wrap {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    margin: 8px auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .anel-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+  .anel-giro { transform-box: fill-box; transform-origin: center; animation: girar 40s linear infinite; }
+  .anel-giro-reverso { transform-box: fill-box; transform-origin: center; animation: girarReverso 30s linear infinite; }
+  
+  .bola-orbe {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--lilas-brilhante) 30%, var(--magenta-astral) 70%, #0d0b1e 100%);
+    box-shadow: 
+      0 0 35px rgba(217, 70, 239, 0.5),
+      inset 0 0 25px rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    animation: pulsoOrbe 3.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes girar { to { transform: rotate(360deg); } }
+  @keyframes girarReverso { to { transform: rotate(-360deg); } }
+  @keyframes pulsoOrbe {
+    0% { transform: scale(0.96); box-shadow: 0 0 25px rgba(217,70,239,0.4), inset 0 0 15px rgba(255,255,255,0.6); }
+    100% { transform: scale(1.04); box-shadow: 0 0 50px rgba(6,182,212,0.7), inset 0 0 30px rgba(255,255,255,0.9); }
+  }
+
+  h1 {
+    font-size: clamp(26px, 7vw, 32px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.25;
+    background: linear-gradient(180deg, #ffffff 30%, var(--dourado-claro) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .sub {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 14.5px;
+    max-width: 340px;
+    margin: 0 auto 28px;
+  }
+
+  .espaco { flex: 1; }
+
+  /* Botão Dourado Premium */
+  .btn-dourado {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--dourado-degrade);
+    color: #0d0b1e;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 18px 24px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(243, 186, 47, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .btn-dourado::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(60deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: rotate(30deg) translateY(-100%);
+    animation: shimmer 3.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: rotate(30deg) translateY(-100%); }
+    20%, 100% { transform: rotate(30deg) translateY(100%); }
+  }
+  .btn-dourado:active { transform: scale(0.97); }
+  .btn-dourado svg { width: 20px; height: 20px; stroke-width: 2.5; }
+
+  .rodape-nota { text-align: center; font-size: 12px; color: var(--texto-suave); margin-top: 14px; opacity: 0.8; }
+
+  /* Quiz e Progresso */
+  .quiz-topo { margin-bottom: 24px; }
+  .quiz-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--lilas-brilhante);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 6px 0;
+  }
+  .contador {
+    font-size: 12px;
+    color: var(--dourado-claro);
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .barra-fundo {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .barra-preenchida {
+    height: 100%;
+    background: linear-gradient(90deg, var(--magenta-astral), var(--dourado-sol));
+    border-radius: 100px;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px var(--magenta-astral);
+  }
+
+  .quiz-pergunta {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin: 16px 0 24px;
+    line-height: 1.35;
+    color: #ffffff;
+  }
+
+  /* Cards de Opções */
+  .opcoes { display: flex; flex-direction: column; gap: 12px; }
+  .opcao {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--texto-marfim);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  .opcao:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(217, 70, 239, 0.4);
+  }
+  .opcao:active { transform: scale(0.98); }
+  .opcao .ic { font-size: 22px; flex-shrink: 0; }
+  .opcao.selecionada {
+    border-color: var(--dourado-sol);
+    background: rgba(243, 186, 47, 0.15);
+    box-shadow: 0 0 20px rgba(243, 186, 47, 0.25);
+  }
+
+  /* Telas de Revelação Animadas */
+  .revelacao-tela {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .revelacao-central {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    margin: 10px auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .revelacao-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,70,239,0.4) 0%, rgba(6,182,212,0.2) 50%, transparent 70%);
+    animation: glowPulso 2s infinite alternate;
+  }
+  
+  .revelacao-simbolo {
+    font-size: 80px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 25px var(--dourado-sol));
+    animation: zoomSimbolo 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .efeito-particulas-box {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .p-item {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    animation: flutuarEfeito 2s ease-in-out infinite;
+  }
+  .p-item:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+  .p-item:nth-child(2) { top: 15%; right: 20%; animation-delay: 0.4s; }
+  .p-item:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 0.8s; }
+  .p-item:nth-child(4) { bottom: 15%; right: 15%; animation-delay: 1.2s; }
+
+  @keyframes zoomSimbolo {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes glowPulso {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    100% { transform: scale(1.15); opacity: 1; }
+  }
+  @keyframes flutuarEfeito {
+    0% { opacity: 0; transform: translateY(10px) scale(0.5); }
+    50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+    100% { opacity: 0; transform: translateY(-25px) scale(0.8); }
+  }
+
+  .revelacao-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--magenta-astral);
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .revelacao-titulo { font-size: 24px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; text-transform: uppercase; }
+  .revelacao-titulo b { color: var(--dourado-sol); }
+  .revelacao-texto {
+    color: var(--texto-suave);
+    font-size: 14.5px;
+    max-width: 340px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+
+  /* Tela de Processando Mapa Astral */
+  .processando-box {
+    text-align: center;
+    margin: auto 0;
+    align-items: center;
+    justify-content: center;
+  }
+  .processando-barra-wrap {
+    width: 100%;
+    max-width: 320px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 24px auto 16px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+  }
+  .processando-barra-inner {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--magenta-astral), var(--dourado-sol));
+    box-shadow: 0 0 15px var(--dourado-sol);
+    transition: width 0.1s linear;
+    border-radius: 100px;
+  }
+  .processando-status {
+    font-size: 13px;
+    color: var(--lilas-brilhante);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* Form & Inputs */
+  h2 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+  .sub2 { text-align: center; color: var(--texto-suave); font-size: 14px; max-width: 340px; margin: 0 auto 20px; }
+
+  .alerta-sinais {
+    background: rgba(217, 70, 239, 0.12);
+    border: 1px solid rgba(217, 70, 239, 0.4);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--dourado-claro);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .recap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .recap span {
+    background: rgba(192, 132, 252, 0.15);
+    border: 1px solid rgba(192, 132, 252, 0.4);
+    color: var(--dourado-claro);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 100px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--lilas-brilhante);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+  .campo { margin-bottom: 18px; text-align: left; }
+  .opcional { font-weight: 400; color: var(--texto-suave); text-transform: none; }
+  
+  input {
+    width: 100%;
+    background: rgba(13, 11, 30, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    color: var(--texto-marfim);
+    font-size: 16px;
+    padding: 15px 16px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+  }
+  input:focus {
+    border-color: var(--dourado-sol);
+    box-shadow: 0 0 15px rgba(243, 186, 47, 0.3);
+  }
+  input::placeholder { color: rgba(165, 161, 201, 0.5); }
+  .erro { color: #ff6b6b; font-size: 12px; margin-top: 6px; display: none; font-weight: 600; }
+  .campo.invalido input { border-color: #ff6b6b; }
+  .campo.invalido .erro { display: block; }
+</style>
+</head>
+<body>
+
+<canvas id="canvasEstrelas"></canvas>
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+
+<main>
+
+  <!-- TELA 1 — TEASER -->
+  <section class="tela ativa" id="telaInicio">
+    <div class="eyebrow"><span class="linha"></span> AGOSTO · 2026 <span class="linha"></span></div>
+
+    <div class="anel-wrap">
+      <svg class="anel-svg" viewBox="0 0 190 190">
+        <circle cx="95" cy="95" r="90" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <g class="anel-giro">
+          <circle cx="95" cy="95" r="82" fill="none" stroke="url(#gradDourado)" stroke-width="1.5" stroke-dasharray="3 10" stroke-linecap="round"/>
+        </g>
+        <g class="anel-giro-reverso">
+          <circle cx="95" cy="95" r="74" fill="none" stroke="var(--magenta-astral)" stroke-width="1" stroke-dasharray="1 8" opacity="0.6"/>
+        </g>
+        <defs>
+          <linearGradient id="gradDourado" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffe8aa" />
+            <stop offset="100%" stop-color="#b8860b" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="bola-orbe">🔮</div>
+    </div>
+
+    <h1 class="serif">Agosto pode ser o mês da sua virada.</h1>
+    <p class="sub">Os astros revelam tendências poderosas para Amor, Finanças, Carreira e Saúde. Faça seu alinhamento gratuito agora.</p>
+
+    <div class="espaco"></div>
+
+    <button type="button" class="btn-dourado" id="btnIniciarQuiz">
+      Revelar minha previsão
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+    <p class="rodape-nota">✨ Teste místico individual • Leva 30s</p>
+  </section>
+
+  <!-- ETAPA 1 — DATA DE NASCIMENTO -->
+  <section class="tela" id="telaQ1">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaInicio">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 1 DE 5</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:20%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Quando você nasceu?</p>
+
+    <div class="campo" id="campoData">
+      <label for="dataNasc">Sua Data de Nascimento</label>
+      <input type="text" id="dataNasc" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" autocomplete="bday">
+      <div class="erro">Digite uma data válida (ex: 14/08/1998).</div>
+    </div>
+
+    <div class="espaco"></div>
+
+    <button type="button" class="btn-dourado" id="btnAvancarData">
+      Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </section>
+
+  <!-- REVELAÇÃO DO SIGNO -->
+  <section class="tela revelacao-tela" id="telaRevelacaoSigno">
+    <button type="button" class="voltar" data-voltar-para="telaQ1" style="align-self: flex-start; margin-bottom: 10px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Corrigir data
+    </button>
+
+    <div class="revelacao-central">
+      <div class="revelacao-glow"></div>
+      <div class="revelacao-simbolo" id="simboloSignoRevelado">✨</div>
+      <div class="efeito-particulas-box">
+        <span class="p-item">✦</span><span class="p-item">✧</span><span class="p-item">✦</span><span class="p-item">✧</span>
+      </div>
+    </div>
+
+    <p class="revelacao-eyebrow">SIGNO IDENTIFICADO</p>
+    <p class="revelacao-titulo serif">VOCÊ É DE <b id="nomeSignoRevelado">—</b></p>
+    <p class="revelacao-texto" id="textoSignoRevelado"></p>
+
+    <button type="button" class="btn-dourado" id="btnContinuarSigno">
+      Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </section>
+
+  <!-- ETAPA 2 — ÁREA -->
+  <section class="tela" id="telaQ2">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaRevelacaoSigno">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 2 DE 5</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:40%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Qual área você mais quer entender neste mês?</p>
+
+    <div class="opcoes" id="opcoesArea">
+      <div class="opcao" data-valor="Amor"><span class="ic">❤️</span> Amor</div>
+      <div class="opcao" data-valor="Dinheiro"><span class="ic">💰</span> Dinheiro</div>
+      <div class="opcao" data-valor="Trabalho"><span class="ic">💼</span> Trabalho</div>
+      <div class="opcao" data-valor="Saúde"><span class="ic">🌿</span> Saúde</div>
+    </div>
+  </section>
+
+  <!-- REVELAÇÃO DA ÁREA -->
+  <section class="tela revelacao-tela" id="telaRevelacaoArea">
+    <button type="button" class="voltar" data-voltar-para="telaQ2" style="align-self: flex-start; margin-bottom: 10px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Alterar foco
+    </button>
+
+    <div class="revelacao-central">
+      <div class="revelacao-glow"></div>
+      <div class="revelacao-simbolo" id="simboloAreaRevelada">❤️</div>
+      <div class="efeito-particulas-box" id="particulasAreaBox">
+        <span class="p-item">✨</span><span class="p-item">💫</span><span class="p-item">✨</span><span class="p-item">💫</span>
+      </div>
+    </div>
+
+    <p class="revelacao-eyebrow" id="eyebrowArea">VISÃO ASTRAL ACTIVADA</p>
+    <p class="revelacao-titulo serif" id="tituloAreaRevelada">FLECHA DO DESTINO NO AMOR</p>
+    <p class="revelacao-texto" id="textoAreaRevelada"></p>
+
+    <button type="button" class="btn-dourado" id="btnContinuarArea">
+      Avançar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </section>
+
+  <!-- ETAPA 3 — SITUAÇÃO ATUAL -->
+  <section class="tela" id="telaQ3">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaRevelacaoArea">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 3 DE 5</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:60%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Como você descreveria sua situação atual?</p>
+
+    <div class="opcoes" id="opcoesSituacao">
+      <div class="opcao" data-valor="Tudo está dando certo"><span class="ic">🌟</span> Tudo está dando certo.</div>
+      <div class="opcao" data-valor="Estou meio perdido(a)"><span class="ic">🌫️</span> Estou meio perdido(a).</div>
+      <div class="opcao" data-valor="Quero mudanças"><span class="ic">🔄</span> Quero mudanças.</div>
+      <div class="opcao" data-valor="Estou vivendo uma fase complicada"><span class="ic">⛈️</span> Estou vivendo uma fase complicada.</div>
+    </div>
+  </section>
+
+  <!-- ETAPA 4 — SENTIMENTO AGOSTO -->
+  <section class="tela" id="telaQ4">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaQ3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 4 DE 5</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:80%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Qual sentimento define agosto para você?</p>
+
+    <div class="opcoes" id="opcoesSentimento">
+      <div class="opcao" data-valor="Esperança"><span class="ic">✨</span> Esperança</div>
+      <div class="opcao" data-valor="Ansiedade"><span class="ic">😰</span> Ansiedade</div>
+      <div class="opcao" data-valor="Determinação"><span class="ic">🔥</span> Determinação</div>
+      <div class="opcao" data-valor="Dúvida"><span class="ic">🤔</span> Dúvida</div>
+    </div>
+  </section>
+
+  <!-- ETAPA 5 — PERGUNTA PSICOLÓGICA (SINAIS) -->
+  <section class="tela" id="telaQ5">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaQ4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 5 DE 5</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:100%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Você acredita que pequenos sinais podem revelar grandes mudanças?</p>
+
+    <div class="opcoes" id="opcoesSinais">
+      <div class="opcao" data-valor="Sim"><span class="ic">✨</span> Sim.</div>
+      <div class="opcao" data-valor="Às vezes"><span class="ic">🌌</span> Às vezes.</div>
+      <div class="opcao" data-valor="Quero descobrir"><span class="ic">🔮</span> Quero descobrir.</div>
+    </div>
+  </section>
+
+  <!-- TELA — PROCESSANDO MAPA ASTRAL -->
+  <section class="tela processando-box" id="telaProcessando">
+    <div class="anel-wrap" style="width: 140px; height: 140px; margin-bottom: 20px;">
+      <div class="bola-orbe" style="width: 90px; height: 90px; font-size: 38px;">✨</div>
+    </div>
+
+    <h2 class="serif">Estamos terminando...</h2>
+    <p class="sub2" style="margin-bottom: 0;">"Seu mapa está sendo interpretado..."</p>
+
+    <div class="processando-barra-wrap">
+      <div class="processando-barra-inner" id="barraProgressoInner"></div>
+    </div>
+
+    <p class="processando-status" id="textoStatusProcessando">Analisando trânsitos planetários...</p>
+  </section>
+
+  <!-- TELA — FORMULÁRIO FINAL -->
+  <section class="tela" id="telaForm">
+    <h2 class="serif">Leitura Pronta!</h2>
+    
+    <div class="alerta-sinais">
+      ✨ Encontramos alguns sinais importantes para agosto.
+    </div>
+
+    <p class="sub2">Informe onde deseja receber o direcionamento completo do seu mapa astral.</p>
+
+    <div class="recap" id="recap"></div>
+
+    <form id="formHoroscopo" novalidate>
+      <div class="campo" id="campoNome">
+        <label for="nome">Seu Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Como quer ser chamado(a)?" autocomplete="name">
+        <div class="erro">Por favor, digite seu nome.</div>
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail <span class="opcional">(Opcional)</span></label>
+        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email">
+      </div>
+
+      <div class="espaco"></div>
+
+      <button type="submit" class="btn-dourado">
+        Receber leitura por R$ 14,99
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <p class="rodape-nota">🔒 Seus dados estão 100% protegidos e seguros.</p>
+    </form>
+  </section>
+
+</main>
+
+<script>
+  // Canvas de Estrelas no Fundo
+  (function initCanvasStars() {
+    const canvas = document.getElementById('canvasEstrelas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const estrelas = Array.from({ length: 80 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.8 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.015 + 0.005
+    }));
+
+    function animar() {
+      ctx.clearRect(0, 0, width, height);
+      estrelas.forEach(e => {
+        e.alpha += e.speed;
+        if (e.alpha > 1 || e.alpha < 0) e.speed = -e.speed;
+        ctx.fillStyle = `rgba(255, 232, 170, ${Math.abs(e.alpha)})`;
+        ctx.beginPath();
+        ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(animar);
+    }
+    animar();
+  })();
+
+  // Lógica do Quiz
+  var respostas = { 
+    signo: null, 
+    area: null, 
+    situacao: null, 
+    sentimento: null, 
+    sinais: null 
+  };
+
+  var telas = {};
+  document.querySelectorAll('.tela').forEach(function(t){ telas[t.id] = t; });
+
+  function irPara(id){
+    Object.values(telas).forEach(function(t){ t.classList.remove('ativa'); });
+    telas[id].classList.add('ativa');
+    window.scrollTo(0,0);
+  }
+
+  document.getElementById('btnIniciarQuiz').addEventListener('click', function(){ irPara('telaQ1'); });
+
+  document.querySelectorAll('.voltar').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      irPara(btn.getAttribute('data-voltar-para'));
+    });
+  });
+
+  // Cálculo do Signo
+  var ZODIACO = [
+    {nome:'Capricórnio', simbolo:'♑', ini:[12,22], fim:[1,19], texto:'possui uma força interior e alma resiliente capaz de alcançar os picos mais altos.'},
+    {nome:'Aquário', simbolo:'♒', ini:[1,20], fim:[2,18], texto:'carrega uma visão à frente do seu tempo e uma mente livre extremamente magnética.'},
+    {nome:'Peixes', simbolo:'♓', ini:[2,19], fim:[3,20], texto:'possui uma intuição profunda e alma artística capaz de captar o invisível.'},
+    {nome:'Áries', simbolo:'♈', ini:[3,21], fim:[4,19], texto:'tem o fogo da coragem e a força necessária para abrir novos caminhos.'},
+    {nome:'Touro', simbolo:'♉', ini:[4,20], fim:[5,20], texto:'tem o poder da perseverança e uma capacidade única de atrair prosperidade.'},
+    {nome:'Gêmeos', simbolo:'♊', ini:[5,21], fim:[6,20], texto:'possui o dom da comunicação fluida e uma mente rápida e inteligente.'},
+    {nome:'Câncer', simbolo:'♋', ini:[6,21], fim:[7,22], texto:'tem o dom de acolher e seguir uma intuição amorosa extremamente potente.'},
+    {nome:'Leão', simbolo:'♌', ini:[7,23], fim:[8,22], texto:'carrega o brilho do Sol e um magnetismo capaz de iluminar onde passa.'},
+    {nome:'Virgem', simbolo:'♍', ini:[8,23], fim:[9,22], texto:'tem a sabedoria da clareza e o poder de organizar a vida com perfeição.'},
+    {nome:'Libra', simbolo:'♎', ini:[9,23], fim:[10,22], texto:'é mestre em criar harmonia, encanto e atração em seus caminhos.'},
+    {nome:'Escorpião', simbolo:'♏', ini:[10,23], fim:[11,21], texto:'tem um poder de transformação único e uma profundidade marcante.'},
+    {nome:'Sagitário', simbolo:'♐', ini:[11,22], fim:[12,21], texto:'é movido pela expansão, fé e pelo desejo de grandes conquistas.'}
+  ];
+
+  function calcularSigno(dia, mes){
+    for(var i=0; i<ZODIACO.length; i++){
+      var z = ZODIACO[i];
+      var iniMes=z.ini[0], iniDia=z.ini[1], fimMes=z.fim[0], fimDia=z.fim[1];
+      if(iniMes === fimMes){
+        if(mes===iniMes && dia>=iniDia && dia<=fimDia) return z;
+      } else if(iniMes < fimMes){
+        if((mes===iniMes && dia>=iniDia) || (mes===fimMes && dia<=fimDia) || (mes>iniMes && mes<fimMes)) return z;
+      } else {
+        if((mes===iniMes && dia>=iniDia) || (mes===fimMes && dia<=fimDia)) return z;
+      }
+    }
+    return null;
+  }
+
+  // Validação Data
+  var inputData = document.getElementById('dataNasc');
+  var campoData = document.getElementById('campoData');
+
+  function apenasDigitosGlobal(v){ return v.replace(/\D/g, ''); }
+
+  inputData.addEventListener('input', function(){
+    var d = apenasDigitosGlobal(inputData.value).slice(0,8);
+    var out = d;
+    if(d.length > 4){ out = d.slice(0,2) + '/' + d.slice(2,4) + '/' + d.slice(4); }
+    else if(d.length > 2){ out = d.slice(0,2) + '/' + d.slice(2); }
+    inputData.value = out;
+  });
+
+  document.getElementById('btnAvancarData').addEventListener('click', function(){
+    var d = apenasDigitosGlobal(inputData.value);
+    var dia = parseInt(d.slice(0,2), 10);
+    var mes = parseInt(d.slice(2,4), 10);
+    var ano = parseInt(d.slice(4,8), 10);
+    var anoAtual = new Date().getFullYear();
+
+    var valido = d.length === 8 && dia>=1 && dia<=31 && mes>=1 && mes<=12 && ano>=1920 && ano<=anoAtual;
+
+    campoData.classList.toggle('invalido', !valido);
+    if(!valido) return;
+
+    var signo = calcularSigno(dia, mes);
+    if(!signo) return;
+
+    respostas.signo = signo.nome;
+    document.getElementById('simboloSignoRevelado').textContent = signo.simbolo;
+    document.getElementById('nomeSignoRevelado').textContent = signo.nome;
+    document.getElementById('textoSignoRevelado').textContent = 'Pessoas de ' + signo.nome + ' ' + signo.texto;
+
+    irPara('telaRevelacaoSigno');
+  });
+
+  document.getElementById('btnContinuarSigno').addEventListener('click', function(){ irPara('telaQ2'); });
+
+  // Copies da Área Escolhida
+  var DADOS_AREAS = {
+    'Amor': {
+      simbolo: '🏹❤️',
+      particulas: ['💘', '🏹', '✨', '💖'],
+      titulo: 'FLECHA DO DESTINO NO AMOR',
+      texto: 'O alinhamento de Vênus identificou um evento marcante nos seus relacionamentos em Agosto. Há uma decisão ou aproximação iminente reservada para você.'
+    },
+    'Dinheiro': {
+      simbolo: '🏺🪙',
+      particulas: ['💸', '💵', '✨', '💰'],
+      titulo: 'PORTAL DA PROSPERIDADE',
+      texto: 'Júpiter alinha-se com o seu setor financeiro neste mês. As cartas revelam oportunidades de ganhos e desbloqueio de caminhos materiais para Agosto.'
+    },
+    'Trabalho': {
+      simbolo: '⚡💼',
+      particulas: ['🔥', '🎯', '✨', '🚀'],
+      titulo: 'VIRADA DE CHAVE PROFISSIONAL',
+      texto: 'Sol e Marte energizam a sua carreira neste mês. Os astros indicam reconhecimento, novos projetos ou uma mudança importante rumo ao sucesso.'
+    },
+    'Saúde': {
+      simbolo: '🌿✨',
+      particulas: ['🍃', '💧', '☀️', '☘️'],
+      titulo: 'RENOVACÃO DA ENERGIA VITAL',
+      texto: 'Sua aura e seus centros de energia recebem luz neste mês. As cartas apontam um período de alívio, cura e equilíbrio mental e físico em Agosto.'
+    }
+  };
+
+  document.querySelectorAll('#opcoesArea .opcao').forEach(function(op){
+    op.addEventListener('click', function(){
+      document.querySelectorAll('#opcoesArea .opcao').forEach(function(o){ o.classList.remove('selecionada'); });
+      op.classList.add('selecionada');
+      var areaEscolhida = op.getAttribute('data-valor');
+      respostas.area = areaEscolhida;
+
+      var dados = DADOS_AREAS[areaEscolhida];
+      if(dados){
+        document.getElementById('simboloAreaRevelada').textContent = dados.simbolo;
+        document.getElementById('tituloAreaRevelada').innerHTML = dados.titulo;
+        document.getElementById('textoAreaRevelada').textContent = dados.texto;
+
+        var pBox = document.getElementById('particulasAreaBox');
+        pBox.innerHTML = '';
+        dados.particulas.forEach(function(p){
+          var span = document.createElement('span');
+          span.className = 'p-item';
+          span.textContent = p;
+          pBox.appendChild(span);
+        });
+      }
+
+      setTimeout(function(){ irPara('telaRevelacaoArea'); }, 280);
+    });
+  });
+
+  document.getElementById('btnContinuarArea').addEventListener('click', function(){ irPara('telaQ3'); });
+
+  // Opções Situação
+  document.querySelectorAll('#opcoesSituacao .opcao').forEach(function(op){
+    op.addEventListener('click', function(){
+      document.querySelectorAll('#opcoesSituacao .opcao').forEach(function(o){ o.classList.remove('selecionada'); });
+      op.classList.add('selecionada');
+      respostas.situacao = op.getAttribute('data-valor');
+      setTimeout(function(){ irPara('telaQ4'); }, 280);
+    });
+  });
+
+  // Opções Sentimento
+  document.querySelectorAll('#opcoesSentimento .opcao').forEach(function(op){
+    op.addEventListener('click', function(){
+      document.querySelectorAll('#opcoesSentimento .opcao').forEach(function(o){ o.classList.remove('selecionada'); });
+      op.classList.add('selecionada');
+      respostas.sentimento = op.getAttribute('data-valor');
+      setTimeout(function(){ irPara('telaQ5'); }, 280);
+    });
+  });
+
+  // Opções Pergunta Psicológica (Sinais) -> Dispara Processamento
+  document.querySelectorAll('#opcoesSinais .opcao').forEach(function(op){
+    op.addEventListener('click', function(){
+      document.querySelectorAll('#opcoesSinais .opcao').forEach(function(o){ o.classList.remove('selecionada'); });
+      op.classList.add('selecionada');
+      respostas.sinais = op.getAttribute('data-valor');
+
+      setTimeout(function(){ 
+        iniciarAnimacaoProcessando();
+      }, 280);
+    });
+  });
+
+  function iniciarAnimacaoProcessando() {
+    irPara('telaProcessando');
+    var barra = document.getElementById('barraProgressoInner');
+    var status = document.getElementById('textoStatusProcessando');
+    var progresso = 0;
+
+    var mensagens = [
+      "Conectando com o mapa de Agosto...",
+      "Cruzando trânsitos planetários...",
+      "Identificando bloqueios e oportunidades...",
+      "Sinais encontrados com sucesso!"
+    ];
+
+    var interval = setInterval(function(){
+      progresso += 2;
+      barra.style.width = progresso + '%';
+
+      if(progresso < 30) status.textContent = mensagens[0];
+      else if(progresso < 60) status.textContent = mensagens[1];
+      else if(progresso < 90) status.textContent = mensagens[2];
+      else status.textContent = mensagens[3];
+
+      if(progresso >= 100){
+        clearInterval(interval);
+        setTimeout(function(){
+          montarRecap();
+          irPara('telaForm');
+        }, 500);
+      }
+    }, 50);
+  }
+
+  function montarRecap(){
+    var recap = document.getElementById('recap');
+    recap.innerHTML = '';
+    var itens = [respostas.signo, respostas.area, respostas.sentimento].filter(Boolean);
+    itens.forEach(function(v){
+      var s = document.createElement('span');
+      s.textContent = v;
+      recap.appendChild(s);
+    });
+  }
+
+  // Redirecionamento direto ao Gateway de Pagamento
+  var form = document.getElementById('formHoroscopo');
+  var inputNome = document.getElementById('nome');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nomeValido = inputNome.value.trim().length >= 2;
+
+    document.getElementById('campoNome').classList.toggle('invalido', !nomeValido);
+
+    if(!nomeValido){ return; }
+
+    // COLOQUE O LINK DO SEU GATEWAY DE PAGAMENTO AQUI:
+    var urlGateway = "https://seu-gateway-de-pagamento.com/checkout";
+    
+    // Opcional: passa os dados do cliente pela URL se o seu checkout aceitar parâmetros
+    var nomeCliente = encodeURIComponent(inputNome.value.trim());
+    var emailCliente = encodeURIComponent(document.getElementById('email').value.trim());
+    
+    window.location.href = urlGateway + "?name=" + nomeCliente + "&email=" + emailCliente;
+  });
+</script>
+
+</body>
+</html>
