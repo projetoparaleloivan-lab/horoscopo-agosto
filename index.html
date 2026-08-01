@@ -777,12 +777,13 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
   })();
 
   // Lógica do Quiz
-  var respostas = { 
-    signo: null, 
-    area: null, 
-    situacao: null, 
-    sentimento: null, 
-    sinais: null 
+  var respostas = {
+    nascimento: null,
+    signo: null,
+    area: null,
+    situacao: null,
+    sentimento: null,
+    sinais: null
   };
 
   var telas = {};
@@ -862,6 +863,7 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var signo = calcularSigno(dia, mes);
     if(!signo) return;
 
+    respostas.nascimento = inputData.value;
     respostas.signo = signo.nome;
     document.getElementById('simboloSignoRevelado').textContent = signo.simbolo;
     document.getElementById('nomeSignoRevelado').textContent = signo.nome;
@@ -1005,30 +1007,52 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     });
   }
 
-  // Redirecionamento direto ao Gateway de Pagamento
+  var API_URL = 'BACKEND_URL_AQUI';
+  var KIWIFY_URL = 'KIWIFY_CHECKOUT_AQUI';
+
   var form = document.getElementById('formHoroscopo');
   var inputNome = document.getElementById('nome');
 
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
     var nomeValido = inputNome.value.trim().length >= 2;
-
     document.getElementById('campoNome').classList.toggle('invalido', !nomeValido);
+    if(!nomeValido) return;
 
-    if(!nomeValido){ return; }
+    var btnSubmit = form.querySelector('button[type="submit"]');
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Aguarde...';
 
     if(typeof fbq !== 'undefined') {
       fbq('track', 'Lead');
       fbq('track', 'InitiateCheckout', { value: 14.99, currency: 'BRL' });
     }
 
-    // COLOQUE O LINK DO SEU GATEWAY DE PAGAMENTO AQUI:
-    var urlGateway = "https://seu-gateway-de-pagamento.com/checkout";
+    var nome = inputNome.value.trim();
+    var email = document.getElementById('email').value.trim();
 
-    var nomeCliente = encodeURIComponent(inputNome.value.trim());
-    var emailCliente = encodeURIComponent(document.getElementById('email').value.trim());
-
-    window.location.href = urlGateway + "?name=" + nomeCliente + "&email=" + emailCliente;
+    try {
+      var resp = await fetch(API_URL + '/api/criar-sessao', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: nome,
+          email: email,
+          nascimento: respostas.nascimento || '',
+          signo: respostas.signo || '',
+          area: respostas.area || '',
+          situacao: respostas.situacao || '',
+          sentimento: respostas.sentimento || '',
+          sinais: respostas.sinais || ''
+        })
+      });
+      var data = await resp.json();
+      var uuid = data.uuid || '';
+      window.location.href = KIWIFY_URL + '?sck=' + uuid + '&name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
+    } catch(err) {
+      console.error('[API] erro:', err);
+      window.location.href = KIWIFY_URL + '?name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
+    }
   });
 </script>
 
