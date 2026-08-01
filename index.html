@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Horóscopo VIP de Agosto | O que os astros reservam pra você</title>
 <meta name="description" content="Descubra o que agosto reserva para o seu amor, dinheiro, trabalho e saúde em um portal místico exclusivo.">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '834191219576803');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1000,13 +1017,17 @@
 
     if(!nomeValido){ return; }
 
+    if(typeof fbq !== 'undefined') {
+      fbq('track', 'Lead');
+      fbq('track', 'InitiateCheckout', { value: 14.99, currency: 'BRL' });
+    }
+
     // COLOQUE O LINK DO SEU GATEWAY DE PAGAMENTO AQUI:
     var urlGateway = "https://seu-gateway-de-pagamento.com/checkout";
-    
-    // Opcional: passa os dados do cliente pela URL se o seu checkout aceitar parâmetros
+
     var nomeCliente = encodeURIComponent(inputNome.value.trim());
     var emailCliente = encodeURIComponent(document.getElementById('email').value.trim());
-    
+
     window.location.href = urlGateway + "?name=" + nomeCliente + "&email=" + emailCliente;
   });
 </script>
