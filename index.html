@@ -1035,28 +1035,27 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var nome = inputNome.value.trim();
     var email = document.getElementById('email').value.trim();
 
-    try {
-      var resp = await fetch(API_URL + '/api/criar-sessao', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: nome,
-          email: email,
-          nascimento: respostas.nascimento || '',
-          signo: respostas.signo || '',
-          area: respostas.area || '',
-          situacao: respostas.situacao || '',
-          sentimento: respostas.sentimento || '',
-          sinais: respostas.sinais || ''
-        })
-      });
-      var data = await resp.json();
-      var uuid = data.uuid || '';
-      window.location.href = KIWIFY_URL + '?sck=' + uuid + '&name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
-    } catch(err) {
-      console.error('[API] erro:', err);
-      window.location.href = KIWIFY_URL + '?name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
-    }
+    // Redireciona imediatamente, salva lead em background
+    var uuid = Math.random().toString(36).slice(2, 9).toUpperCase();
+    var payload = JSON.stringify({
+      uuid: uuid,
+      nome: nome, email: email,
+      nascimento: respostas.nascimento || '',
+      signo: respostas.signo || '',
+      area: respostas.area || '',
+      situacao: respostas.situacao || '',
+      sentimento: respostas.sentimento || '',
+      sinais: respostas.sinais || ''
+    });
+
+    fetch(API_URL + '/api/criar-sessao', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload,
+      keepalive: true
+    }).catch(function(){});
+
+    window.location.href = KIWIFY_URL + '?sck=' + uuid + '&name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
   });
 </script>
 
