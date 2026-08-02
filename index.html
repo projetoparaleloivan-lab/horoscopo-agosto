@@ -723,9 +723,10 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
         <div class="erro">Por favor, digite seu nome.</div>
       </div>
 
-      <div class="campo">
-        <label for="email">E-mail <span class="opcional">(Opcional)</span></label>
+      <div class="campo" id="campoEmail">
+        <label for="email">E-mail</label>
         <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email">
+        <div class="erro">Digite um e-mail válido.</div>
       </div>
 
       <div class="espaco"></div>
@@ -1016,8 +1017,11 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     var nomeValido = inputNome.value.trim().length >= 2;
+    var emailVal = document.getElementById('email').value.trim();
+    var emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
     document.getElementById('campoNome').classList.toggle('invalido', !nomeValido);
-    if(!nomeValido) return;
+    document.getElementById('campoEmail').classList.toggle('invalido', !emailValido);
+    if(!nomeValido || !emailValido) return;
 
     var btnSubmit = form.querySelector('button[type="submit"]');
     btnSubmit.disabled = true;
