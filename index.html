@@ -1053,8 +1053,10 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var nome = inputNome.value.trim();
     var email = document.getElementById('email').value.trim();
 
-    // Redireciona imediatamente, salva lead em background
-    var uuid = Math.random().toString(36).slice(2, 9).toUpperCase();
+    // Gera um identificador estável para vincular lead e checkout.
+    var uuid = (window.crypto && typeof window.crypto.randomUUID === 'function')
+      ? window.crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase()
+      : Math.random().toString(36).slice(2, 14).toUpperCase();
     var payload = JSON.stringify({
       uuid: uuid,
       nome: nome, email: email,
@@ -1066,12 +1068,21 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
       sinais: respostas.sinais || ''
     });
 
-    fetch(API_URL + '/api/criar-sessao', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: payload,
-      keepalive: true
-    }).catch(function(){});
+    // Aguarda a gravação por alguns instantes antes do checkout para não perder
+    // o lead em conexões lentas ou quando o navegador encerra a página.
+    try {
+      await Promise.race([
+        fetch(API_URL + '/api/criar-sessao', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true
+        }),
+        new Promise(function(resolve){ setTimeout(resolve, 1800); })
+      ]);
+    } catch (_) {
+      // O checkout continua disponível mesmo se a API estiver temporariamente fora.
+    }
 
     window.location.href = KIWIFY_URL + '?sck=' + uuid + '&name=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
   });
