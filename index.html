@@ -747,6 +747,19 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
         <div class="erro">Digite um e-mail válido.</div>
       </div>
 
+      <div class="campo" id="campoHorario">
+        <label for="horario">Horário de nascimento</label>
+        <input type="time" id="horario" name="horario" autocomplete="off">
+        <div class="erro">Informe o horário de nascimento.</div>
+        <small class="opcional">Se não souber, marque 12:00. O ascendente ficará menos preciso.</small>
+      </div>
+
+      <div class="campo" id="campoCidade">
+        <label for="cidade">Cidade de nascimento</label>
+        <input type="text" id="cidade" name="cidade" placeholder="Ex.: Feira de Santana, BA" autocomplete="address-level2">
+        <div class="erro">Informe a cidade onde nasceu.</div>
+      </div>
+
       <div class="espaco"></div>
 
       <button type="submit" class="btn-dourado">
@@ -1037,9 +1050,15 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var nomeValido = inputNome.value.trim().length >= 2;
     var emailVal = document.getElementById('email').value.trim();
     var emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+    var horarioVal = document.getElementById('horario').value;
+    var cidadeVal = document.getElementById('cidade').value.trim();
+    var horarioValido = /^\d{2}:\d{2}$/.test(horarioVal);
+    var cidadeValida = cidadeVal.length >= 2;
     document.getElementById('campoNome').classList.toggle('invalido', !nomeValido);
     document.getElementById('campoEmail').classList.toggle('invalido', !emailValido);
-    if(!nomeValido || !emailValido) return;
+    document.getElementById('campoHorario').classList.toggle('invalido', !horarioValido);
+    document.getElementById('campoCidade').classList.toggle('invalido', !cidadeValida);
+    if(!nomeValido || !emailValido || !horarioValido || !cidadeValida) return;
 
     var btnSubmit = form.querySelector('button[type="submit"]');
     btnSubmit.disabled = true;
@@ -1061,6 +1080,8 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
       uuid: uuid,
       nome: nome, email: email,
       nascimento: respostas.nascimento || '',
+      horario: horarioVal,
+      cidade: cidadeVal,
       signo: respostas.signo || '',
       area: respostas.area || '',
       situacao: respostas.situacao || '',
