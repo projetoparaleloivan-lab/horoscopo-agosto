@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Seu mapa está pronto</title>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#070510;color:#f8f5ee;font:16px Arial,sans-serif;text-align:center}main{width:min(560px,100%);padding:42px 28px;border:1px solid #3b2860;border-radius:20px;background:#171230;box-shadow:0 20px 70px #0008}h1{margin:0 0 12px;font-family:Georgia,serif;font-size:clamp(28px,6vw,44px)}p{color:#c5bfdf;line-height:1.6}.status{min-height:28px;margin:24px 0}.ok{color:#73e6a1}.erro{color:#ff9b9b}a{display:inline-block;padding:15px 25px;border-radius:12px;background:linear-gradient(135deg,#fff3d1,#f3ba2f);color:#171230;font-weight:700;text-decoration:none}a[aria-disabled=true]{opacity:.45;pointer-events:none}small{display:block;margin-top:20px;color:#8981aa}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Seu mapa está pronto ✨</h1>
+    <p id="intro">Estamos confirmando o pagamento e preparando seu PDF.</p>
+    <div id="status" class="status">Aguarde alguns instantes...</div>
+    <a id="download" aria-disabled="true" href="#">Baixar meu PDF</a>
+    <small>Se o pagamento acabou de ser aprovado, esta página atualiza automaticamente.</small>
+  </main>
+  <script>
+    const API = 'https://horoscopo-api-production.up.railway.app';
+    const q = new URLSearchParams(location.search);
+    const uuid = q.get('uuid') || q.get('sck') || q.get('src') || '';
+    const status = document.getElementById('status');
+    const intro = document.getElementById('intro');
+    const download = document.getElementById('download');
+    if (!uuid) {
+      status.textContent = 'Não encontramos o identificador desta compra.';
+      status.className = 'status erro';
+    } else {
+      const pdf = API + '/api/pdf/' + encodeURIComponent(uuid);
+      download.href = pdf;
+      let tentativas = 0;
+      async function verificar() {
+        try {
+          const r = await fetch(API + '/api/relatorio/' + encodeURIComponent(uuid), { cache: 'no-store' });
+          if (r.ok) {
+            const data = await r.json();
+            if (data.relatorio) {
+              status.textContent = 'Leitura concluída. Seu PDF já está disponível.';
+              status.className = 'status ok';
+              download.setAttribute('aria-disabled', 'false');
+              return;
+            }
+          }
+          tentativas++;
+          status.textContent = tentativas > 1 ? 'Ainda preparando sua leitura...' : 'Confirmando seu pagamento...';
+          if (tentativas < 40) setTimeout(verificar, 5000);
+          else { status.textContent = 'Demorou mais que o esperado. Tente novamente em alguns minutos.'; status.className = 'status erro'; }
+        } catch (_) {
+          status.textContent = 'Não foi possível consultar agora. Tentando novamente...';
+          if (++tentativas < 40) setTimeout(verificar, 5000);
+        }
+      }
+      verificar();
+    }
+  </script>
+</body>
+</html>
