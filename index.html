@@ -544,9 +544,9 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 1 DE 6</span>
+        <span class="contador">ETAPA 1 DE 8</span>
       </div>
-      <div class="barra-fundo"><div class="barra-preenchida" style="width:20%"></div></div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:12.5%"></div></div>
     </div>
 
     <p class="quiz-pergunta serif">Quando você nasceu?</p>
@@ -590,17 +590,70 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     </button>
   </section>
 
-  <!-- ETAPA 2 — ÁREA -->
-  <section class="tela" id="telaQ2">
+  <!-- ETAPA 2 — HORÁRIO DE NASCIMENTO -->
+  <section class="tela" id="telaHorario">
     <div class="quiz-topo">
       <div class="quiz-nav">
         <button type="button" class="voltar" data-voltar-para="telaRevelacaoSigno">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 2 DE 6</span>
+        <span class="contador">ETAPA 2 DE 8</span>
       </div>
-      <div class="barra-fundo"><div class="barra-preenchida" style="width:40%"></div></div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:25%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Que horas você nasceu?</p>
+    <div class="campo" id="campoHorarioQuiz">
+      <label for="horario">Seu horário de nascimento</label>
+      <input type="time" id="horario" name="horario" autocomplete="off">
+      <div class="erro">Informe o horário ou use 12:00 se não souber.</div>
+      <small class="opcional">O horário ajuda a calcular seu ascendente com mais precisão.</small>
+    </div>
+    <div class="espaco"></div>
+    <button type="button" class="btn-dourado" id="btnAvancarHorario">
+      Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </section>
+
+  <!-- ETAPA 3 — CIDADE DE NASCIMENTO -->
+  <section class="tela" id="telaCidade">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaHorario">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 3 DE 8</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:37.5%"></div></div>
+    </div>
+
+    <p class="quiz-pergunta serif">Em qual cidade você nasceu?</p>
+    <div class="campo" id="campoCidadeQuiz">
+      <label for="cidade">Sua cidade de nascimento</label>
+      <input type="text" id="cidade" name="cidade" placeholder="Ex.: Feira de Santana, BA" autocomplete="address-level2">
+      <div class="erro">Informe a cidade onde você nasceu.</div>
+    </div>
+    <div class="espaco"></div>
+    <button type="button" class="btn-dourado" id="btnAvancarCidade">
+      Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </section>
+
+  <!-- ETAPA 2 — ÁREA -->
+  <section class="tela" id="telaQ2">
+    <div class="quiz-topo">
+      <div class="quiz-nav">
+        <button type="button" class="voltar" data-voltar-para="telaCidade">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </button>
+        <span class="contador">ETAPA 4 DE 8</span>
+      </div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:50%"></div></div>
     </div>
 
     <p class="quiz-pergunta serif">Qual área você mais quer entender neste mês?</p>
@@ -646,9 +699,9 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 3 DE 6</span>
+        <span class="contador">ETAPA 5 DE 8</span>
       </div>
-      <div class="barra-fundo"><div class="barra-preenchida" style="width:60%"></div></div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:62.5%"></div></div>
     </div>
 
     <p class="quiz-pergunta serif">Como você descreveria sua situação atual?</p>
@@ -669,9 +722,9 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 4 DE 6</span>
+        <span class="contador">ETAPA 6 DE 8</span>
       </div>
-      <div class="barra-fundo"><div class="barra-preenchida" style="width:80%"></div></div>
+      <div class="barra-fundo"><div class="barra-preenchida" style="width:75%"></div></div>
     </div>
 
     <p class="quiz-pergunta serif">Qual sentimento define agosto para você?</p>
@@ -692,7 +745,7 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 5 DE 6</span>
+        <span class="contador">ETAPA 7 DE 8</span>
       </div>
       <div class="barra-fundo"><div class="barra-preenchida" style="width:100%"></div></div>
     </div>
@@ -714,7 +767,7 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Voltar
         </button>
-        <span class="contador">ETAPA 6 DE 6</span>
+        <span class="contador">ETAPA 8 DE 8</span>
       </div>
       <div class="barra-fundo"><div class="barra-preenchida" style="width:100%"></div></div>
     </div>
@@ -768,19 +821,6 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
         <label for="email">E-mail</label>
         <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email">
         <div class="erro">Digite um e-mail válido.</div>
-      </div>
-
-      <div class="campo" id="campoHorario">
-        <label for="horario">Horário de nascimento</label>
-        <input type="time" id="horario" name="horario" autocomplete="off">
-        <div class="erro">Informe o horário de nascimento.</div>
-        <small class="opcional">Se não souber, marque 12:00. O ascendente ficará menos preciso.</small>
-      </div>
-
-      <div class="campo" id="campoCidade">
-        <label for="cidade">Cidade de nascimento</label>
-        <input type="text" id="cidade" name="cidade" placeholder="Ex.: Feira de Santana, BA" autocomplete="address-level2">
-        <div class="erro">Informe a cidade onde nasceu.</div>
       </div>
 
       <div class="espaco"></div>
@@ -928,7 +968,21 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     irPara('telaRevelacaoSigno');
   });
 
-  document.getElementById('btnContinuarSigno').addEventListener('click', function(){ irPara('telaQ2'); });
+  document.getElementById('btnContinuarSigno').addEventListener('click', function(){ irPara('telaHorario'); });
+
+  document.getElementById('btnAvancarHorario').addEventListener('click', function(){
+    var horario = document.getElementById('horario').value;
+    var valido = /^\d{2}:\d{2}$/.test(horario);
+    document.getElementById('campoHorarioQuiz').classList.toggle('invalido', !valido);
+    if(valido) irPara('telaCidade');
+  });
+
+  document.getElementById('btnAvancarCidade').addEventListener('click', function(){
+    var cidade = document.getElementById('cidade').value.trim();
+    var valido = cidade.length >= 2;
+    document.getElementById('campoCidadeQuiz').classList.toggle('invalido', !valido);
+    if(valido) irPara('telaQ2');
+  });
 
   // Copies da Área Escolhida
   var DADOS_AREAS = {
@@ -1088,8 +1142,8 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var cidadeValida = cidadeVal.length >= 2;
     document.getElementById('campoNome').classList.toggle('invalido', !nomeValido);
     document.getElementById('campoEmail').classList.toggle('invalido', !emailValido);
-    document.getElementById('campoHorario').classList.toggle('invalido', !horarioValido);
-    document.getElementById('campoCidade').classList.toggle('invalido', !cidadeValida);
+    document.getElementById('campoHorarioQuiz').classList.toggle('invalido', !horarioValido);
+    document.getElementById('campoCidadeQuiz').classList.toggle('invalido', !cidadeValida);
     if(!nomeValido || !emailValido || !horarioValido || !cidadeValida) return;
 
     var btnSubmit = form.querySelector('button[type="submit"]');
