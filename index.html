@@ -1162,6 +1162,7 @@ src="https://www.facebook.com/tr?id=834191219576803&ev=PageView&noscript=1"/></n
     var uuid = (window.crypto && typeof window.crypto.randomUUID === 'function')
       ? window.crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase()
       : Math.random().toString(36).slice(2, 14).toUpperCase();
+    try { localStorage.setItem('mapa_compra_uuid', uuid); } catch (_) {}
     var payload = JSON.stringify({
       uuid: uuid,
       nome: nome, email: email,

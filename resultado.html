@@ -19,7 +19,7 @@
   <script>
     const API = 'https://horoscopo-api-production.up.railway.app';
     const q = new URLSearchParams(location.search);
-    const uuid = q.get('uuid') || q.get('sck') || q.get('src') || '';
+    const uuid = q.get('uuid') || q.get('sck') || q.get('src') || (() => { try { return localStorage.getItem('mapa_compra_uuid') || ''; } catch (_) { return ''; } })();
     const status = document.getElementById('status');
     const intro = document.getElementById('intro');
     const download = document.getElementById('download');
